@@ -22,6 +22,17 @@
     transform: translateX(0);
 }
 
-.Closed {
+.Close {
     transform: translateX(-100%);
+}
+
+.Logo{
+    margin-bottom: 32px;
+
+}
+
+@media (max-width: 499px) {
+    .DesktopOnly {
+        display: none;
+    }
 }
