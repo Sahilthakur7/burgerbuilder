@@ -139,7 +139,16 @@ class BurgerBuilder extends Component {
         //             purchasing: false
         //         })
         //     });
-        this.props.history.push('/checkout');
+        const queryParams = [];
+        for(let i in this.state.ingredients){
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
+        } 
+
+        const queryString = queryParams.join('&');
+
+        this.props.history.push({pathname:'/checkout',
+            search: '?' + queryString
+        });
     }
 
     render () {
@@ -157,18 +166,18 @@ class BurgerBuilder extends Component {
         if(this.state.ingredients){
             burger = 
                 (<Aux>
-                    <Burger ingredients={this.state.ingredients} />
-                    <BuildControls 
-                        ingredientAdded={this.addIngredientHandler}
-                        ingredientRemoved={this.removeIngredientHandler}
-                        price = {this.state.totalPrice}
-                        purchasable={this.state.purchasable}
-                        disabled={disabledInfo}
-                        ordered={this.purchaseHandler}
+                <Burger ingredients={this.state.ingredients} />
+                <BuildControls 
+                    ingredientAdded={this.addIngredientHandler}
+                    ingredientRemoved={this.removeIngredientHandler}
+                    price = {this.state.totalPrice}
+                    purchasable={this.state.purchasable}
+                    disabled={disabledInfo}
+                    ordered={this.purchaseHandler}
 
-                    /> 
+                /> 
 
-            </Aux>);
+                    </Aux>);
             orderSummary = <OrderSummary
                 purchaseCancelled={this.purchaseCancelHandler}
                 purchaseContinued={this.purchaseContinueHandler}
